@@ -1,8 +1,8 @@
 package es.ieslavereda.examen_prgord_2324.model;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -19,20 +19,14 @@ public class BomboBingo extends Bombo{
         setBolas(bolas);
     }
 
-    public List<Bola> girarBombo(){
-        List<Bola> retorno = new ArrayList<>();
-        List listaBolas = getBolas().stream().collect(Collectors.toList());
-        Collections.shuffle(listaBolas);
+    public Bola sacarBola(){
+        List<Bola> listaBolas = getBolas().stream().collect(Collectors.toList());
+        if(getBolas().size()%5==0)
+            Collections.shuffle(listaBolas);
+        Bola bola = listaBolas.remove(0);
+        setBolas(new LinkedHashSet<>(listaBolas));
 
-        if(listaBolas.size()<5)
-            return null;
-
-        for (int i = 0; i < 5; i++) {
-               retorno.add((Bola) listaBolas.remove(0));
-        }
-
-        setBolas(new HashSet<>(listaBolas));
-        return retorno;
+        return bola;
     }
 
 }

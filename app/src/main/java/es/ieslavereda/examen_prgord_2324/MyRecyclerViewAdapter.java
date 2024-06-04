@@ -9,20 +9,30 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-import es.ieslavereda.examen_prgord_2324.model.Bandeja;
+import es.ieslavereda.examen_prgord_2324.model.Bola;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.MyViewHolder> {
 
     private LayoutInflater inflater;
     private Context context;
-    private List<Bandeja> bolas;
+    private List<Bola> bolas;
+    private List<Bola> aux;
 
-    public MyRecyclerViewAdapter(@NonNull Context context, List<Bandeja> bolas) {
+    public MyRecyclerViewAdapter(@NonNull Context context) {
         this.context = context;
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.bolas=bolas;
+        this.bolas=new ArrayList<>();
+        this.aux=new ArrayList<>();
+    }
+
+    public void add(Bola bola){
+        bolas.add(bola);
+        aux.add(bola);
+        notifyItemInserted(bolas.size()-1);
     }
 
     @NonNull
@@ -34,14 +44,30 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     @Override
     public void onBindViewHolder(@NonNull MyRecyclerViewAdapter.MyViewHolder holder, int position) {
-        holder.numeroBolaSacadaRV.setText(String.valueOf(bolas.get(position).getPosicion()));
-        holder.bolaSacadaRV.setBackground(context.getDrawable(bolas.get(position).getBola().getColor()));
-        holder.bolaSacadaRV.setText(String.valueOf(bolas.get(position).getBola().getNumero()));
+        holder.numeroBolaSacadaRV.setText(String.valueOf(position+1));
+        holder.bolaSacadaRV.setBackground(context.getDrawable(aux.get(position).getColor()));
+        holder.bolaSacadaRV.setText(String.valueOf(aux.get(position).getNumero()));
     }
 
     @Override
     public int getItemCount() {
         return bolas.size();
+    }
+
+    public void sortPosition(){
+        aux.clear();
+        aux.addAll(bolas);
+        notifyDataSetChanged();
+    }
+
+    public void sortColor(){
+        Collections.sort(aux);
+        notifyDataSetChanged();
+    }
+
+    public void sortNumber(){
+        aux.sort(Bola.SORT_NUMBER);
+        notifyDataSetChanged();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{

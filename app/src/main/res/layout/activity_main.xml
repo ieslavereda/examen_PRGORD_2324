@@ -107,7 +107,7 @@
 
     <RadioGroup
         android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:orientation="horizontal"
@@ -116,16 +116,25 @@
         app:layout_constraintTop_toBottomOf="@+id/bolaSacada">
 
         <RadioButton
-            android:id="@+id/sortTime"
-            android:layout_width="wrap_content"
+            android:id="@+id/sortPosition"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="sort By Position  " />
 
         <RadioButton
             android:id="@+id/sortNumber"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Sort By Number" />
+            android:layout_weight="1"
+            android:text="Sort By Number " />
+
+        <RadioButton
+            android:id="@+id/sortColor"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Sort by Color " />
 
     </RadioGroup>
 

@@ -1,6 +1,9 @@
 package es.ieslavereda.examen_prgord_2324.model;
 
-public class Bola{
+import java.util.Comparator;
+
+public class Bola implements Comparable<Bola>{
+    public static final Comparator<Bola> SORT_NUMBER = Comparator.comparingInt(o -> o.numero);
     private int numero;
     private int color;
 
@@ -28,5 +31,10 @@ public class Bola{
     @Override
     public int hashCode() {
         return numero;
+    }
+
+    @Override
+    public int compareTo(Bola o) {
+        return (numero-color)-(o.numero-o.color);
     }
 }
