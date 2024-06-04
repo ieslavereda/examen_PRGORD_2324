@@ -21,29 +21,30 @@ public class Carton extends LinearLayout {
 
     public Carton(Context context) {
         super(context);
-        setOrientation(LinearLayout.HORIZONTAL);
-        inicialize(context);
+
+        inicialize();
     }
 
     public Carton(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        setOrientation(LinearLayout.HORIZONTAL);
-        inicialize(context);
+
+        inicialize();
     }
 
     public Carton(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setOrientation(LinearLayout.HORIZONTAL);
-        inicialize(context);
+
+        inicialize();
     }
 
     public Carton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        setOrientation(LinearLayout.HORIZONTAL);
-        inicialize(context);
+
+        inicialize();
     }
 
-    private void inicialize(Context context) {
+    private void inicialize() {
+        setOrientation(LinearLayout.HORIZONTAL);
         numeroEnCartones = new TreeMap<>();
         views = new HashMap<>();
 
@@ -53,14 +54,21 @@ public class Carton extends LinearLayout {
 
         int i=0;
         for (Integer numero : numeroEnCartones.keySet()) {
-            TextView textView = new TextView(context);
-            textView.setText("|"+numero);
-            textView.setGravity(TEXT_ALIGNMENT_CENTER);
-            textView.setBackground((++i%2==0)?context.getDrawable(R.color.blue):context.getDrawable(R.color.yellow));
-            textView.setTextSize(10);
+            TextView textView = createTextView(numero,++i);
             views.put(numero,textView);
             addView(textView);
         }
+    }
+
+    private TextView createTextView(Integer numero, int addEven) {
+        Context context = getContext();
+        TextView textView = new TextView(context);
+        textView.setText(""+numero);
+        textView.setWidth(36);
+        textView.setGravity(TEXT_ALIGNMENT_CENTER);
+        textView.setBackground((addEven%2==0)?context.getDrawable(R.color.blue):context.getDrawable(R.color.yellow));
+        textView.setTextSize(10);
+        return textView;
     }
 
     public boolean check(int numero){
